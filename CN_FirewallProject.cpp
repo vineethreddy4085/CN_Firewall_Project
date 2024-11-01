@@ -71,7 +71,76 @@ void searchFirewallRules(const vector<FirewallRule>& firewallRules)
 }
 
 //Traffic operations
+void blockAllTraffic(vector<FirewallRule>& firewallRules)
+{
 
+}
+
+void allowAllTraffic(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+//range based operations
+void blockAllTrafficFromRange(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void allowAllTrafficFromRange(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+//protocol based operations
+void blockAllTrafficbyProtocol(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void allowAllTrafficbyProtocol(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+//port based operations
+void blockAllTrafficbyPort(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void allowAllTrafficbyPort(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+//print screen
+void printMenu()
+{
+
+}
+
+//hashing using SHA 256
+string hashPassword(const string& password)
+{
+
+}
+
+//hidden path
+string getHiddenPath(const string& filename)
+{
+
+}
+
+//authentication
+bool authenticate(string& username, string& password)
+{
+
+}
+bool authenticate(const string& username,const string& password)
+{
+
+}
 
 int main()
 {
