@@ -27,6 +27,51 @@ then follow these steps
 #include<Windows.h>
 using namespace std;
 
+//Firewall rule creation according to IP Address
+struct FirewallRule
+{
+	string ipAddress;
+	bool allow;
+};
+
+//FIrewall operations
+bool isPacketAlowed(const string& ipAddress, const vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void addFirewallRule(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void removeFirewallRule(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void clearFirewallRules(vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void printFirewallRules(const vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void countFirewallRules(const vector<FirewallRule>& firewallRules)
+{
+
+}
+
+void searchFirewallRules(const vector<FirewallRule>& firewallRules)
+{
+
+}
+
+//Traffic operations
+
 
 int main()
 {
