@@ -18,214 +18,14 @@ then follow these steps
 #include<iostream>
 #include <iomanip>
 #include<fstream>
-#include<string>
-#include<vector>
 #include<openssl\evp.h>
 #include<openssl\sha.h>
 #include<sstream>
 #include<limits>
 #include<Windows.h>
 #include <ios>
+#include "firewall.h"
 using namespace std;
-
-//Firewall rule creation according to IP Address
-struct FirewallRule
-{
-	string ipAddress;
-	bool allow;
-};
-
-//FIrewall operations
-bool isPacketAlowed(const string& ipAddress, const vector<FirewallRule>& firewallRules)
-{
-	for (const auto& rule : firewallRules)
-	{
-		if (rule.ipAddress == ipAddress)
-			return rule.allow;
-	}
-	return false;
-}
-
-void addFirewallRule(vector<FirewallRule>& firewallRules)
-{
-	string ipAddress;
-	char choice;
-
-	cout << "Enter IP Address: ";
-	cin >> ipAddress;
-
-	cout << "Allow or Block (a or b): ";
-	cin >> choice;
-
-	bool allow = (choice == 'a' || choice == 'A');
-	firewallRules.push_back({ ipAddress,allow });
-
-	cout << "Firewall rule added successfully. \n";
-}
-
-void removeFirewallRule(vector<FirewallRule>& firewallRules)
-{
-	string ipAddress;
-
-	cout << "Enter IP address to remove: ";
-	cin >> ipAddress;
-
-	for (auto it = firewallRules.begin(); it != firewallRules.end(); ++it) {
-		if (it->ipAddress == ipAddress) {
-			firewallRules.erase(it);
-			cout << "Firewall rule removed successfully." << endl;
-			return;
-		}
-	}
-
-	cout << "Firewall rule not found for the given IP address." << endl;
-}
-
-void clearFirewallRules(vector<FirewallRule>& firewallRules)
-{
-	firewallRules.clear();
-	cout << "All firewall rules cleared." << endl;
-}
-
-void printFirewallRules(const vector<FirewallRule>& firewallRules)
-{
-	cout << "Firewall Rules:" << endl;
-	for (const auto& rule : firewallRules) {
-		string action = rule.allow ? "Allow" : "Block";
-		cout << "IP: " << rule.ipAddress << "  Action: " << action << endl;
-	}
-}
-
-void countFirewallRules(const vector<FirewallRule>& firewallRules)
-{
-	cout << "Total firewall rules: " << firewallRules.size() << endl;
-
-}
-
-void searchFirewallRules(const vector<FirewallRule>& firewallRules)
-{
-	string ipAddress;
-
-	cout << "Enter IP address to search: ";
-	cin >> ipAddress;
-
-	for (const auto& rule : firewallRules) {
-		if (rule.ipAddress == ipAddress) {
-			string action = rule.allow ? "Allow" : "Block";
-			cout << "Firewall rule found for IP: " << rule.ipAddress << "  Action: " << action << endl;
-			return;
-		}
-	}
-
-	cout << "No firewall rule found for the given IP address." << endl;
-
-}
-
-//Traffic operations
-void blockAllTraffic(vector<FirewallRule>& firewallRules)
-{
-	firewallRules.clear();
-	firewallRules.push_back({ "0.0.0.0", false });
-	cout << "All traffic blocked. Firewall rules updated." << endl;
-
-}
-
-void allowAllTraffic(vector<FirewallRule>& firewallRules)
-{
-	firewallRules.clear();
-	firewallRules.push_back({ "0.0.0.0", true });
-	cout << "All traffic allowed. Firewall rules updated." << endl;
-
-}
-
-//range based operations
-void blockAllTrafficFromRange(vector<FirewallRule>& firewallRules)
-{
-	string startIp, endIp;
-
-	cout << "Enter starting IP address: ";
-	cin >> startIp;
-
-	cout << "Enter ending IP address: ";
-	cin >> endIp;
-
-	firewallRules.push_back({ startIp, false });
-	firewallRules.push_back({ endIp, false });
-
-	cout << "Blocked traffic from IP range " << startIp << " to " << endIp << ". Firewall rules updated." << endl;
-
-}
-
-void allowAllTrafficFromRange(vector<FirewallRule>& firewallRules)
-{
-	string startIp, endIp;
-
-	cout << "Enter starting IP address: ";
-	cin >> startIp;
-
-	cout << "Enter ending IP address: ";
-	cin >> endIp;
-
-	firewallRules.push_back({ startIp, true });
-	firewallRules.push_back({ endIp, true });
-
-	cout << "Allowed traffic from IP range " << startIp << " to " << endIp << ". Firewall rules updated." << endl;
-
-}
-
-//protocol based operations
-void blockAllTrafficbyProtocol(vector<FirewallRule>& firewallRules)
-{
-	string protocol;
-
-	cout << "Enter protocol to block: ";
-	cin >> protocol;
-
-	firewallRules.push_back({ protocol, false });
-
-	cout << "Blocked traffic for protocol " << protocol << ". Firewall rules updated." << endl;
-
-}
-
-void allowAllTrafficbyProtocol(vector<FirewallRule>& firewallRules)
-{
-	string protocol;
-
-	cout << "Enter protocol to allow: ";
-	cin >> protocol;
-
-	firewallRules.push_back({ protocol, true });
-
-	cout << "Allowed traffic for protocol " << protocol << ". Firewall rules updated." << endl;
-
-}
-
-//port based operations
-void blockAllTrafficbyPort(vector<FirewallRule>& firewallRules)
-{
-	string port;
-
-	cout << "Enter port to block: ";
-	cin >> port;
-
-	firewallRules.push_back({ port, false });
-
-	cout << "Blocked traffic for port " << port << ". Firewall rules updated." << endl;
-
-}
-
-void allowAllTrafficbyPort(vector<FirewallRule>& firewallRules)
-{
-	string port;
-
-	cout << "Enter port to allow: ";
-	cin >> port;
-
-	firewallRules.push_back({ port, true });
-
-	cout << "Allowed traffic for port " << port << ". Firewall rules updated." << endl;
-
-}
 
 //print screen
 void printMenu()
@@ -340,7 +140,7 @@ bool authenticate(const string& username,const string& password)
 //main
 int main()
 {
-	vector<FirewallRule> firewallRules;
+	Firewall F;
 
 	string username, password;
 	if (!authenticate(username, password)) {
@@ -356,22 +156,22 @@ int main()
 
 		switch (choice) {
 		case 1:
-			addFirewallRule(firewallRules);
+			F.addFirewallRule();
 			break;
 		case 2:
-			removeFirewallRule(firewallRules);
+			F.removeFirewallRule();
 			break;
 		case 3:
-			clearFirewallRules(firewallRules);
+			F.clearFirewallRules();
 			break;
 		case 4:
-			printFirewallRules(firewallRules);
+			F.printFirewallRules();
 			break;
 		case 5:
-			countFirewallRules(firewallRules);
+			F.countFirewallRules();
 			break;
 		case 6:
-			searchFirewallRules(firewallRules);
+			F.searchFirewallRules();
 			break;
 		case 7:
 			// Submenu for blocking/allowing traffic
@@ -392,28 +192,28 @@ int main()
 
 				switch (submenuChoice) {
 				case 1:
-					blockAllTraffic(firewallRules);
+					F.blockAllTraffic();
 					break;
 				case 2:
-					allowAllTraffic(firewallRules);
+					F.allowAllTraffic();
 					break;
 				case 3:
-					blockAllTrafficFromRange(firewallRules);
+					F.blockAllTrafficFromRange();
 					break;
 				case 4:
-					allowAllTrafficFromRange(firewallRules);
+					F.allowAllTrafficFromRange();
 					break;
 				case 5:
-					blockAllTrafficbyProtocol(firewallRules);
+					F.blockAllTrafficbyProtocol();
 					break;
 				case 6:
-					allowAllTrafficbyProtocol(firewallRules);
+					F.allowAllTrafficbyProtocol();
 					break;
 				case 7:
-					blockAllTrafficbyPort(firewallRules);
+					F.blockAllTrafficbyPort();
 					break;
 				case 8:
-					allowAllTrafficbyPort(firewallRules);
+					F.allowAllTrafficbyPort();
 					break;
 				case 9:
 					break;  // Go back to the main menu

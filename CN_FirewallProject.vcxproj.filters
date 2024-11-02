@@ -18,5 +18,13 @@
     <ClCompile Include="CN_FirewallProject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="firewall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="firewall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
