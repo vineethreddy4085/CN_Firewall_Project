@@ -143,10 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="auth.cpp" />
     <ClCompile Include="CN_FirewallProject.cpp" />
     <ClCompile Include="firewall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="auth.h" />
     <ClInclude Include="firewall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,9 +21,15 @@
     <ClCompile Include="firewall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="auth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="firewall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
